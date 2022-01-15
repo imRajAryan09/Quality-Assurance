@@ -1,4 +1,5 @@
-**FreeCodeCamp**- Information Security and Quality Assurance
+# Metric-Imperial Converter
+
 ------
 
 1) SET NODE_ENV to `test` without quotes
