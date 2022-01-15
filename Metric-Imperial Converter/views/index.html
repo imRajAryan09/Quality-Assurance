@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Metric Imperial Converter</title>
+    <meta name="description" content="Metric Imperial Converter">
+    <link id="favicon" rel="icon" href="https://hyperdev.com/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./public/style.css">
+  </head>
+  <body>
+    <div class="container">
+
+        <header>
+            <h1 id="title">
+              Metric Imperial Converter
+            </h1>
+        </header>
+
+        <section class="conversion-info">
+          <p class="supported">Supported Conversions:</p>
+          <div class="table">
+            <div class="metric">gal</div>
+            <div class="arrow"><i class="fa fa-arrows-h"></i></div>
+            <div class="imperial">L</div>
+            <div class="metric">lbs</div>
+            <div class="arrow"><i class="fa fa-arrows-h"></i></div>
+            <div class="imperial">kg</div>
+            <div class="metric">mi</div>
+            <div class="arrow"><i class="fa fa-arrows-h"></i></div>
+            <div class="imperial">km</div>
+          </div>
+        </section>
+
+        <section class="form">
+            <form id="convertForm" class="border">
+                <input type="text" id="convertField" name="input" placeholder="3.1mi" style="width: 200px">
+                <input id="convert" type="submit" value='Convert!'>
+            </form>
+        </section>
+
+        <section class="results">
+            <p id='result'></p>
+        </section>
+
+    </div>
+
+    <!-- Your web-app is https, so your scripts need to be too -->
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+            crossorigin="anonymous"></script>
+    <script>
+      $(function() {
+        $('#convertForm').submit(function() {
+          event.preventDefault();
+          $.ajax({
+            url: '/api/convert',
+            type: 'get',
+            data: $('#convertForm').serialize(),
+            success: function(data) {
+              if(data["returnNum"]){
+                $('#result').html("<div class=result-detail><div>"+data["initNum"]+ " " + data["initUnit"]+ "</div>\
+                                   <div class=arrow-right><i class='fa fa-arrow-right'></i></div>"
+                                   +"<div>"+data["returnNum"]+ " " + data["returnUnit"]+ "</div></div>");
+              }else {
+                $('#result').html("<div>"+data["string"]+"</div>");
+              }
+            }
+          });
+        });
+      });
+   </script>
+
+  </body>
+</html>
